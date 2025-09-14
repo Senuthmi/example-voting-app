@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: votingapp-ingress
+  namespace: votingapp
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vote
+                port:
+                  number: 8080   # matches vote-service.yaml
+          - path: /results
+            pathType: Prefix
+            backend:
+              service:
+                name: result
+                port:
+                  number: 8081   # matches result-service.yaml
